@@ -1,0 +1,2 @@
+SELECT * FROM prova.fornitorI AS F1,prova.fornitori AS F2
+WHERE F1.CITTA=F2.CITTA AND F1.COD!=F2.COD;

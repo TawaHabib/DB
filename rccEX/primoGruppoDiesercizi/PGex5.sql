@@ -1,0 +1,4 @@
+SELECT * 
+FROM PROVA.FORNITURE 
+where FCOD='F003' and (PCOD in ('P006', '001')) and QUANTITA>80
+;

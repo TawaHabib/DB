@@ -1,0 +1,3 @@
+SELECT MANSIONE ,count(MATRICOLA) 
+FROM PROVA.DIPENDENTI
+group by mansione;
