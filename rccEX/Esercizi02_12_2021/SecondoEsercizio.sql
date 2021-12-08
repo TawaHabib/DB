@@ -25,28 +25,28 @@ LEFT JOIN
 					FROM prova.dipendenti) AS T2)	
 		where 	(NUM_DIPART,MANSIONE)	NOT IN
 				(#CASI REALI DI MANSIONI E DIPARTIMENTI
-						SELECT DISTINCT  NUM_DIPART, MANSIONE 
+						SELECT   NUM_DIPART, MANSIONE 
 						FROM prova.dipendenti 
-						where NUM_DIPART IS NOT NULL)
+						where NUM_DIPART IS NOT NULL and MANSIONE IS NOT NULL)
 		group by MANSIONE
         )AS T1 ON T0.MANSIONE=T1.MANSIONE 
 LEFT JOIN
 		(###########----UNOSUP----##########
 		SELECT MANSIONE, count(NUM_DIPART) AS UNOSUP
 		FROM(
-				SELECT  MANSIONE,NUM_DIPART, count(Matricola) as UNOSUP
+				SELECT  MANSIONE,NUM_DIPART
 				FROM prova.dipendenti
 				group by MANSIONE,NUM_DIPART
-                having count(Matricola)=1)AS T1 
+                having count(distinct Matricola)=1)AS T1 
 		group by MANSIONE
             )AS T2 ON T0.MANSIONE=T2.MANSIONE
 LEFT JOIN
 		(###########----DUESUP----##########
 		SELECT MANSIONE, count(NUM_DIPART) AS DUESUP
 		FROM(
-				SELECT  MANSIONE,NUM_DIPART, count(Matricola) as DUESUP
+				SELECT  MANSIONE,NUM_DIPART
 				FROM prova.dipendenti
 				group by MANSIONE,NUM_DIPART
-                having count(Matricola)>1)AS T1 
+                having count(distinct Matricola)>1)AS T1 
 		group by MANSIONE)AS T3 ON T0.MANSIONE=T3.MANSIONE
 ORDER BY MANSIONE
