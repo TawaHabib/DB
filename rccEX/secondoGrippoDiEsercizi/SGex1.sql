@@ -1,3 +1,4 @@
+#finito
 /*1.	Selezionare i dipendenti che guadagnano il minimo e quelli che
 		guadagnano il massimo rispetto alla propria mansione, elencandoli poi per mansione*/
 select *

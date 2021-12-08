@@ -1,3 +1,4 @@
+#finito
 SELECT COD,NOME 
 FROM PROVA.PARTI 
 where PESO>10000;

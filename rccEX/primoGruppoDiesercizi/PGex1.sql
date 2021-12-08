@@ -1,3 +1,4 @@
+#finito
 SELECT * FROM prova.dipendenti;
 select *FROM prova.dipart;
 select *FROM prova.fornitori;
