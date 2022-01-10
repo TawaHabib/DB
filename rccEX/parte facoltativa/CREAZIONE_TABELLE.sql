@@ -45,15 +45,16 @@ CREATE TABLE  LAUREATI
         );
 
 ###############una volta caricati i dati in atenei e in t_laoreati eseguire i seguenti###############
-update  dataingestion481357.laureati as t1 set IstatP=null where not (t1.IstatP=concat('',t1.IstatP*1));
+update  dataingestion481357.t_laureati as t1 set IstatP=null where IstatP ="dato non pubblicato" or not (t1.IstatP=concat('',t1.IstatP*1));
 #######METTO A ZERO I NON INT PER POTERLO INSERIRE NEI LAOREATI; E ANCHE PER INCLUDERE Lao NELLA PK (LA PK NON PUò ESSERE NULLA)
-update  dataingestion481357.laureati as t1 set Lau=0 where not (t1.Lau=concat('',t1.Lau*1));
+update  dataingestion481357.t_laureati as t1 set Lau=0 where Lau ="dato non pubblicato" or not (t1.Lau=concat('',t1.Lau*1));
 #######COPIO CONVERTENDO OPPURTANAMENTE I VARCHAR IN INTEGER
 insert into dataingestion481357.laureati
 			(
 			select distinct		AnnoS ,AteneoCOD ,AteneoNOME,ClasseNUMERO,CorsoNOME ,SedeC,
 								cast(IstatP as unsigned integer),cast(Lau as unsigned integer)
 			from 				dataingestion481357.t_laureati
+            where 				AteneoCOD IN (SELECT COD_Ateneo FROM dataingestion481357.atenei)
             );
 #########ELIMINA TABELLA T_LAOREATI
 DROP TABLE  dataingestion481357.T_laureati;
